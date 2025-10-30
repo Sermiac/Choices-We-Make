@@ -1,0 +1,143 @@
+[gd_scene load_steps=4 format=3 uid="uid://blgxinywdvibo"]
+
+[ext_resource type="Script" uid="uid://dcf0rkbh7h58x" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Script" uid="uid://bjap8q0x8bbjj" path="res://Scripts/options_menu.gd" id="2_48xlc"]
+[ext_resource type="Script" uid="uid://uey7mnvk7yj6" path="res://Scripts/confirmation_menu.gd" id="3_1ehe0"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="main_buttons" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 91.0
+offset_right = 175.0
+offset_bottom = 549.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_buttons"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="continue_button" type="Button" parent="main_buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="new_button" type="Button" parent="main_buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "New"
+
+[node name="options_button" type="Button" parent="main_buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Options"
+
+[node name="exit_button" type="Button" parent="main_buttons/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[node name="options_menu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 547.0
+offset_top = 88.0
+offset_right = 821.0
+offset_bottom = 559.0
+script = ExtResource("2_48xlc")
+
+[node name="MarginContainer" type="MarginContainer" parent="options_menu"]
+layout_mode = 0
+offset_right = 274.0
+offset_bottom = 471.0
+
+[node name="BoxContainer" type="BoxContainer" parent="options_menu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 120
+vertical = true
+
+[node name="master_button" type="Button" parent="options_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+text = "Master"
+
+[node name="music_button" type="Button" parent="options_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Music"
+
+[node name="sounds_button" type="Button" parent="options_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Sounds"
+
+[node name="master_slider" type="HSlider" parent="options_menu"]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 25.0
+offset_right = 549.0
+offset_bottom = 53.0
+min_value = -80.0
+max_value = 0.0
+
+[node name="confirmation_menu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 493.0
+offset_top = 62.0
+offset_right = 1073.0
+offset_bottom = 615.0
+script = ExtResource("3_1ehe0")
+
+[node name="MarginContainer" type="MarginContainer" parent="confirmation_menu"]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 246.0
+offset_right = 458.0
+offset_bottom = 323.0
+
+[node name="BoxContainer" type="BoxContainer" parent="confirmation_menu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 120
+
+[node name="yes_button" type="Button" parent="confirmation_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+toggle_mode = true
+text = "  Yes  "
+
+[node name="no_button" type="Button" parent="confirmation_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "  No  "
+
+[node name="Label_confirmation" type="Label" parent="confirmation_menu"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 52.0
+offset_right = 594.0
+offset_bottom = 139.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 30
+text = "Are you sure you want to start a new game?
+All data will be deleted"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="main_buttons/VBoxContainer/continue_button" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="main_buttons/VBoxContainer/new_button" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="main_buttons/VBoxContainer/options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="main_buttons/VBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]
+[connection signal="toggled" from="options_menu/MarginContainer/BoxContainer/master_button" to="options_menu" method="_on_master_button_toggled"]
+[connection signal="pressed" from="options_menu/MarginContainer/BoxContainer/music_button" to="options_menu" method="_on_continue_button_pressed"]
+[connection signal="value_changed" from="options_menu/master_slider" to="options_menu" method="_on_master_slider_value_changed"]
+[connection signal="pressed" from="confirmation_menu/MarginContainer/BoxContainer/yes_button" to="confirmation_menu" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="confirmation_menu/MarginContainer/BoxContainer/no_button" to="confirmation_menu" method="_on_no_button_pressed"]

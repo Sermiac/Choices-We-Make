@@ -1,0 +1,446 @@
+[gd_scene load_steps=34 format=3 uid="uid://brkqthk1tmg8p"]
+
+[ext_resource type="Script" uid="uid://cl0oooqerku6u" path="res://Scripts/game.gd" id="1_7ug6d"]
+[ext_resource type="Texture2D" uid="uid://cacipc63hfax7" path="res://Assets/Backgrounds/background_house.png" id="2_lmwq5"]
+[ext_resource type="Texture2D" uid="uid://b735d845cvua" path="res://Assets/Characters/Animations/Idle_05.png" id="4_bu6dc"]
+[ext_resource type="Texture2D" uid="uid://dw8hxv66arbvd" path="res://Assets/Characters/Animations/Walking_02.png" id="6_karln"]
+[ext_resource type="Script" uid="uid://bbfw8uuph7qse" path="res://Scripts/dialogue_box.gd" id="9_4dwi4"]
+[ext_resource type="Texture2D" uid="uid://bd400i6mbktpt" path="res://Assets/Objects/Animations/Phone_00.png" id="10_lmwq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gau5j"]
+size = Vector2(57, 203)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4svt"]
+atlas = ExtResource("10_lmwq5")
+region = Rect2(0, 0, 83, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttg8n"]
+atlas = ExtResource("10_lmwq5")
+region = Rect2(83, 0, 83, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h1dt"]
+atlas = ExtResource("10_lmwq5")
+region = Rect2(0, 46, 83, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_karln"]
+atlas = ExtResource("10_lmwq5")
+region = Rect2(83, 46, 83, 46)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j14gn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4svt")
+}],
+"loop": true,
+"name": &"cellphone_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4svt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttg8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h1dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_karln")
+}],
+"loop": true,
+"name": &"cellphone_move",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewbju"]
+atlas = ExtResource("6_karln")
+region = Rect2(0, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qyi"]
+atlas = ExtResource("6_karln")
+region = Rect2(64, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iivbl"]
+atlas = ExtResource("6_karln")
+region = Rect2(128, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nbq1"]
+atlas = ExtResource("6_karln")
+region = Rect2(0, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exi56"]
+atlas = ExtResource("6_karln")
+region = Rect2(64, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7t8sx"]
+atlas = ExtResource("6_karln")
+region = Rect2(128, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg4q0"]
+atlas = ExtResource("6_karln")
+region = Rect2(0, 256, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm72l"]
+atlas = ExtResource("6_karln")
+region = Rect2(64, 256, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rku1e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_bu6dc")
+}],
+"loop": true,
+"name": &"idle_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewbju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iivbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nbq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exi56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7t8sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg4q0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm72l")
+}],
+"loop": true,
+"name": &"walking_animation",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
+size = Vector2(21.799408, 22.740952)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6g32"]
+size = Vector2(116.17613, 323.33347)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l0tm"]
+size = Vector2(100.51175, 325.10675)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v158k"]
+size = Vector2(33.13344, 57.39755)
+
+[sub_resource type="Animation" id="Animation_lmwq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7ug6d"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x4svt"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ttg8n"]
+_data = {
+&"RESET": SubResource("Animation_lmwq5"),
+&"fade_in": SubResource("Animation_7ug6d"),
+&"fade_out": SubResource("Animation_x4svt")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bu6dc"]
+size = Vector2(17.37977, 28.270767)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l3jqw"]
+size = Vector2(39.5, 457)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ug6d"]
+size = Vector2(168, 121)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bu6dc"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"bed_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"bed_move",
+"speed": 5.0
+}]
+
+[node name="House" type="Node2D"]
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("1_7ug6d")
+
+[node name="Background" type="Area2D" parent="Game"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Game/Background"]
+position = Vector2(526.01697, 259.5)
+scale = Vector2(2.0781941, 1.912134)
+texture = ExtResource("2_lmwq5")
+
+[node name="cellphone" type="Area2D" parent="Game" groups=["interactables"]]
+visible = false
+position = Vector2(750, 309)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/cellphone"]
+position = Vector2(1, 50.5)
+shape = SubResource("RectangleShape2D_gau5j")
+
+[node name="Label_interact" type="Label" parent="Game/cellphone"]
+visible = false
+offset_left = -160.0
+offset_top = -113.0
+offset_right = 102.0
+offset_bottom = -71.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Press E to interact"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/cellphone"]
+position = Vector2(-5, 66)
+sprite_frames = SubResource("SpriteFrames_j14gn")
+animation = &"cellphone_move"
+
+[node name="player" type="Area2D" parent="Game" groups=["player"]]
+position = Vector2(443, 370.00003)
+scale = Vector2(1.6917521, 1.6917521)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/player"]
+scale = Vector2(1.1271027, 1.1271027)
+sprite_frames = SubResource("SpriteFrames_rku1e")
+animation = &"idle_animation"
+
+[node name="character_CollisionShape2D" type="CollisionShape2D" parent="Game/player"]
+position = Vector2(-2.3644104, -4.137741)
+scale = Vector2(1.8438574, 5.4585085)
+shape = SubResource("RectangleShape2D_wowpa")
+
+[node name="Camera2D" type="Camera2D" parent="Game/player"]
+position = Vector2(0, -29.970814)
+zoom = Vector2(1.16, 1.16)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Game/player/Camera2D"]
+
+[node name="DialogueBox" type="Control" parent="Game/player/Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 525.0
+offset_top = 479.00003
+offset_right = 565.0
+offset_bottom = 519.0
+script = ExtResource("9_4dwi4")
+
+[node name="Panel" type="Panel" parent="Game/player/Camera2D/CanvasLayer/DialogueBox"]
+layout_mode = 0
+offset_left = -414.0
+offset_top = -52.0
+offset_right = 494.0
+offset_bottom = 110.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Game/player/Camera2D/CanvasLayer/DialogueBox/Panel"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 901.0
+offset_bottom = 156.0
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+bbcode_enabled = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Game/player/Camera2D/CanvasLayer/DialogueBox/Panel"]
+layout_mode = 0
+offset_left = 623.0
+offset_top = 130.0
+offset_right = 1528.0
+offset_bottom = 286.0
+bbcode_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="Game/player/Camera2D/CanvasLayer/DialogueBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer" type="Timer" parent="Game/player/Camera2D/CanvasLayer/DialogueBox"]
+process_priority = 1
+process_physics_priority = 1
+
+[node name="text_timer" type="Timer" parent="Game/player/Camera2D/CanvasLayer/DialogueBox"]
+process_priority = 1
+process_physics_priority = 1
+one_shot = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Game/player"]
+offset_left = 255.0
+offset_top = -187.97083
+offset_right = 286.0
+offset_bottom = -151.97083
+
+[node name="BoxContainer" type="BoxContainer" parent="Game/player/MarginContainer"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="Game/player/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "<<"
+
+[node name="Area2D_left" type="Area2D" parent="Game/player"]
+position = Vector2(0, -31.328487)
+
+[node name="left_zone" type="CollisionShape2D" parent="Game/player/Area2D_left"]
+position = Vector2(-264.97418, -0.295578)
+shape = SubResource("RectangleShape2D_i6g32")
+
+[node name="Area2D_right" type="Area2D" parent="Game/player"]
+position = Vector2(0, -31.328487)
+
+[node name="right_zone" type="CollisionShape2D" parent="Game/player/Area2D_right"]
+position = Vector2(265.41748, -1.1822205)
+shape = SubResource("RectangleShape2D_1l0tm")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Game/player"]
+offset_left = 159.59784
+offset_top = -15.368703
+offset_right = 190.59784
+offset_bottom = 20.631298
+
+[node name="BoxContainer" type="BoxContainer" parent="Game/player/MarginContainer2"]
+layout_mode = 2
+
+[node name="interact" type="Button" parent="Game/player/MarginContainer2/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = " E "
+
+[node name="door" type="Area2D" parent="Game"]
+position = Vector2(1077, 331)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/door"]
+position = Vector2(-3.5762787e-07, 1)
+scale = Vector2(3.5915375, 4.52981)
+shape = SubResource("RectangleShape2D_v158k")
+
+[node name="Label_interact" type="Label" parent="Game/door"]
+visible = false
+offset_left = -160.0
+offset_top = -136.0
+offset_right = 102.0
+offset_bottom = -94.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Press E to interact"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/door"]
+
+[node name="first_text_timer" type="Timer" parent="Game"]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Game"]
+top_level = true
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game"]
+libraries = {
+&"": SubResource("AnimationLibrary_ttg8n")
+}
+
+[node name="wall_right" type="Area2D" parent="Game"]
+position = Vector2(522, 281)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/wall_right"]
+position = Vector2(-654.2607, -22.675293)
+scale = Vector2(3.2521338, 16.36494)
+shape = SubResource("RectangleShape2D_bu6dc")
+
+[node name="wall_left" type="Area2D" parent="Game"]
+position = Vector2(522, 281)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/wall_left"]
+position = Vector2(651.75, -21.5)
+shape = SubResource("RectangleShape2D_l3jqw")
+
+[node name="bed" type="Area2D" parent="Game" groups=["interactables"]]
+position = Vector2(317, 382)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/bed"]
+position = Vector2(-25, 15.5)
+shape = SubResource("RectangleShape2D_7ug6d")
+
+[node name="Label_interact" type="Label" parent="Game/bed"]
+visible = false
+offset_left = -160.0
+offset_top = -184.0
+offset_right = 102.0
+offset_bottom = -142.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Press E to interact"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/bed"]
+sprite_frames = SubResource("SpriteFrames_bu6dc")
+animation = &"bed_move"
+
+[connection signal="area_entered" from="Game/player" to="Game" method="_on_player_area_entered"]
+[connection signal="area_exited" from="Game/player" to="Game" method="_on_player_area_exited"]
+[connection signal="timeout" from="Game/player/Camera2D/CanvasLayer/DialogueBox/Timer" to="Game/player/Camera2D/CanvasLayer/DialogueBox" method="_on_timer_timeout"]
+[connection signal="timeout" from="Game/player/Camera2D/CanvasLayer/DialogueBox/text_timer" to="Game" method="_on_text_timer_timeout"]
+[connection signal="timeout" from="Game/player/Camera2D/CanvasLayer/DialogueBox/text_timer" to="Game/player/Camera2D/CanvasLayer/DialogueBox" method="_on_text_timer_timeout"]
+[connection signal="pressed" from="Game/player/MarginContainer/BoxContainer/Exit" to="Game" method="_on_exit_pressed"]
+[connection signal="input_event" from="Game/player/Area2D_left" to="Game" method="_on_area_2d_left_input_event"]
+[connection signal="mouse_exited" from="Game/player/Area2D_left" to="Game" method="_on_area_2d_left_mouse_exited"]
+[connection signal="input_event" from="Game/player/Area2D_right" to="Game" method="_on_area_2d_right_input_event"]
+[connection signal="mouse_exited" from="Game/player/Area2D_right" to="Game" method="_on_area_2d_right_mouse_exited"]
+[connection signal="button_down" from="Game/player/MarginContainer2/BoxContainer/interact" to="Game" method="_on_interact_button_down"]
+[connection signal="button_up" from="Game/player/MarginContainer2/BoxContainer/interact" to="Game" method="_on_interact_button_up"]
+[connection signal="timeout" from="Game/first_text_timer" to="Game" method="_on_first_text_timer_timeout"]
+[connection signal="animation_finished" from="Game/AnimationPlayer" to="Game" method="_on_animation_player_animation_finished"]
