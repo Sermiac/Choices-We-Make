@@ -1,18 +1,16 @@
 ### First lines
-[b]Julia:[/b]   I gotta call Lisa again
-[b]Julia:[/b]   This was not a good idea
-[b]Julia:[/b]   What was she thinking??...
+[b]Julia:[/b]   I gotta call again
+[b]Julia:[/b]   For more information
 
 ### Interacting with Cellphone
-[b]Julia:[/b]   WTF!
-[b]Julia:[/b]   ARE YOU ON DRUGS??
-[b]Lisa:[/b]   No...
-[b]Julia:[/b]   *I will just sleep... I need to think...*
+[b]Developer:[/b]   After this lines, you can interact with the bed
+[b]Developer:[/b]   The bed has its own lines too
+[b]Developer:[/b]   *Hangs up*
 
 ### Interacting with Bed
-[b]Julia:[/b]   I need the money, but do I want to do that?
-[b]Julia:[/b]   Is it the only way?...
+[b]Developer:[/b]   Bed lines while fade in
+[b]Developer:[/b]   End of lines
 
 ### optionalText
-[b]Julia:[/b]   I need to call Lisa!!
-[b]Julia:[/b]   I need to think about all of this... Just a nap its all I need...
+[b]Julia:[/b]   I need to call again!!
+[b]Julia:[/b]   I want to sleep on my bed
