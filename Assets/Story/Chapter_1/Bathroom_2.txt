@@ -1,0 +1,11 @@
+### First lines
+[b]Developer:[/b]   First lines
+[b]Developer:[/b]   End of lines
+
+### Interacting with Hole
+[b]Developer:[/b]   Interact 2
+[b]Developer:[/b]   End of lines
+[b]Developer:[/b]   After this there are no more scenes, so game will take you to main menu
+
+### optionalText
+[b]Developer:[/b]   Door lines without interacting

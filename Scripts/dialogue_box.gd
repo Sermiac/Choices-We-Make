@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 func show_text(text: String):
 	self.visible = true
 	full_text = text
-	char_index = 15
+	char_index = 18
 	label.text = full_text.substr(0, char_index)
 	timer.start(typing_speed)
 

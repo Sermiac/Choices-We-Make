@@ -20,7 +20,6 @@ var story_begin
 var change_scene_conditions = false
 
 
-
 func _init() -> void:
 	Globals.save_on_file(1)
 
@@ -74,8 +73,10 @@ func _ready() -> void:
 	# First Scene Animation
 	$AnimationPlayer.play("fade_out")
 	# Story
+	Globals.load_story_file()
 	story_end = Globals.story_number_manager()
 	Globals.save_on_file(2)
+	
 
 
 
@@ -306,7 +307,9 @@ func interactable_objects():
 	if interact_logic_area_entered() == true:
 		if area_name == $door:
 			if !change_scene_conditions:
-				if $bed.visible == true and $cellphone/CollisionShape2D.disabled == true:
+				if has_node("cellphone") and $cellphone.visible == false and $cellphone/CollisionShape2D.disabled == true:
+					change_scene_conditions = true
+				elif has_node("bed") and $bed.visible == true and $cellphone/CollisionShape2D.disabled == true:
 					text_manager(100)
 				else:
 					text_manager(99)

@@ -1,0 +1,10 @@
+[b]Developer:[/b]   Hello, this is the second scene
+[b]Developer:[/b]   Here finishes the first lines
+
+### Interacting with Hole
+[b]Developer:[/b]   Interact lines
+[b]Developer:[/b]   line
+[b]Developer:[/b]   End of lines
+
+### optionalText
+[b]Developer:[/b]   Door line without interacting

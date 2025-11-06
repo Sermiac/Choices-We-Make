@@ -108,16 +108,16 @@ offset_bottom = 323.0
 layout_mode = 2
 theme_override_constants/separation = 120
 
-[node name="yes_button" type="Button" parent="confirmation_menu/MarginContainer/BoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-toggle_mode = true
-text = "  Yes  "
-
 [node name="no_button" type="Button" parent="confirmation_menu/MarginContainer/BoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
+toggle_mode = true
 text = "  No  "
+
+[node name="yes_button" type="Button" parent="confirmation_menu/MarginContainer/BoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "  Yes  "
 
 [node name="Label_confirmation" type="Label" parent="confirmation_menu"]
 layout_mode = 0
@@ -132,12 +132,24 @@ text = "Are you sure you want to start a new game?
 All data will be deleted"
 horizontal_alignment = 1
 
+[node name="Label_story_end" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 594.0
+offset_top = 116.0
+offset_right = 939.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 33
+text = "End of beta story
+Thank you for playing
+<3"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="main_buttons/VBoxContainer/continue_button" to="." method="_on_continue_button_pressed"]
 [connection signal="pressed" from="main_buttons/VBoxContainer/new_button" to="." method="_on_new_button_pressed"]
 [connection signal="pressed" from="main_buttons/VBoxContainer/options_button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="main_buttons/VBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]
 [connection signal="toggled" from="options_menu/MarginContainer/BoxContainer/master_button" to="options_menu" method="_on_master_button_toggled"]
-[connection signal="pressed" from="options_menu/MarginContainer/BoxContainer/music_button" to="options_menu" method="_on_continue_button_pressed"]
 [connection signal="value_changed" from="options_menu/master_slider" to="options_menu" method="_on_master_slider_value_changed"]
-[connection signal="pressed" from="confirmation_menu/MarginContainer/BoxContainer/yes_button" to="confirmation_menu" method="_on_yes_button_pressed"]
 [connection signal="pressed" from="confirmation_menu/MarginContainer/BoxContainer/no_button" to="confirmation_menu" method="_on_no_button_pressed"]
+[connection signal="pressed" from="confirmation_menu/MarginContainer/BoxContainer/yes_button" to="confirmation_menu" method="_on_yes_button_pressed"]

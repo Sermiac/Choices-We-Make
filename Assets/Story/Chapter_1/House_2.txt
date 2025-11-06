@@ -1,0 +1,18 @@
+### First lines
+[b]Julia:[/b]   I gotta call Lisa again
+[b]Julia:[/b]   This was not a good idea
+[b]Julia:[/b]   What was she thinking??...
+
+### Interacting with Cellphone
+[b]Julia:[/b]   WTF!
+[b]Julia:[/b]   ARE YOU ON DRUGS??
+[b]Lisa:[/b]   No...
+[b]Julia:[/b]   *I will just sleep... I need to think...*
+
+### Interacting with Bed
+[b]Julia:[/b]   I need the money, but do I want to do that?
+[b]Julia:[/b]   Is it the only way?...
+
+### optionalText
+[b]Julia:[/b]   I need to call Lisa!!
+[b]Julia:[/b]   I need to think about all of this... Just a nap its all I need...

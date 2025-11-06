@@ -8,9 +8,10 @@ There are no heroes here—only choices, and the price they demand.
 
 
 
-This game is currently in development. Gameplay, visuals, and story elements may change in future updates.
+
+**This game is currently in development**. Gameplay, visuals, and story elements may change in future updates.
 
 
 
-Content Warning:
+**Content Warning:**
 This project is intended for adults  (18+). It contains mature themes, nudity, and explicit content not suitable for minors. Viewer discretion is advised.

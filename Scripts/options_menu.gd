@@ -13,7 +13,7 @@ func _on_master_slider_value_changed(volume: float) -> void:
 	music.volume_db = volume
 
 
-func _on_master_button_toggled() -> void:
+func _on_master_button_toggled(toggled_on: bool) -> void:
 	if music.playing == true:
 		music.playing = false
 	elif music.playing == false:
