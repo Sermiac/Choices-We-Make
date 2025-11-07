@@ -1,5 +1,7 @@
 # CHOICES WE MAKE
 
+![Description](https://sermiac.github.io/assets/game.gif)
+
 Choices We Make is a story-driven 2D game about survival, temptation, and consequence. You play as a young woman struggling to stay afloat after losing her job. With bills piling up and time running out, every decision pulls her closer to desperation.
 
 Face offers that blur the line between necessity and morality. Each path changes her story, her relationships, and her future.
