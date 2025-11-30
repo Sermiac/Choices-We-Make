@@ -16,6 +16,6 @@ House_n...
 
 
 Also, first line will be used when you get into the scene. After that, it will be processed in order by each interactable:
-### I am planning to change this to be more dynamic:
+(I am planning to change this to be more dynamic)
 House : Cellphone, Bed
-Bethroom : Hole
+Bathroom : Hole

@@ -17,7 +17,7 @@ var story_end
 var story_begin
 
 # Change scene conditions met
-var change_scene_conditions = false
+var change_scene_conditions = 0
 
 
 func _init() -> void:
@@ -48,7 +48,7 @@ func get_interactables_properties():
 			group[index] = nodes
 			index += 1
 
-	# initialize them 2 times (based on the amount of properties)
+	# initialize them 3 times (based on the amount of properties)
 	for property in 3:
 		for index in group:
 			Globals.initialize_scene_nodes(group[index], property)
@@ -56,7 +56,7 @@ func get_interactables_properties():
 
 func _ready() -> void:
 	Globals.story_mode = true
-	change_scene_conditions = false
+	change_scene_conditions = 0
 	# Get name of scene and starts counting
 	Globals.scene_name = get_parent().name
 	if Globals.scene_name == "House":
@@ -76,6 +76,7 @@ func _ready() -> void:
 	Globals.load_story_file()
 	story_end = Globals.story_number_manager()
 	Globals.save_on_file(2)
+	print(Globals.story_data)
 	
 
 
@@ -122,6 +123,7 @@ func _process(delta: float) -> void:
 func wall_collided() -> String:
 	var wall_name = wall.name.replace("wall_", "") if wall else ""
 	return wall_name
+
 
 # Signals when character enters a specific area //------//-------//------//
 var area_entered = false
@@ -282,7 +284,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "fade_out":
 		return
 	if anim_name == "fade_in":
-		if change_scene_conditions and area_name == $door:
+		if change_scene_conditions == Globals.max_scene_conditions and area_name == $door:
 			if Globals.scene_name == "House":
 				get_tree().change_scene_to_file("res://Scenes/bathroom.tscn")
 				interact = true
@@ -302,34 +304,32 @@ func interactable_objects():
 		if area_name.get_child_count() > 1 and area_name.get_child(1).name == "Label_interact":
 			var label = area_name.get_child(1)
 			label.visible = true
-		
 			
+	# if pressed button and inside of interactable area
 	if interact_logic_area_entered() == true:
+		print(Globals.max_scene_conditions)
+		# Manage Door interactions
 		if area_name == $door:
-			if !change_scene_conditions:
-				if has_node("cellphone") and $cellphone.visible == false and $cellphone/CollisionShape2D.disabled == true:
-					change_scene_conditions = true
-				elif has_node("bed") and $bed.visible == true and $cellphone/CollisionShape2D.disabled == true:
-					text_manager(100)
-				else:
-					text_manager(99)
-			if change_scene_conditions:
+			if change_scene_conditions != Globals.max_scene_conditions:
+				text_manager(99 + change_scene_conditions)
+
+			if change_scene_conditions == Globals.max_scene_conditions:
 				save_player_data(Globals.scene_name)
 				$AnimationPlayer.play("fade_in")
 
+		# Manage interactions on objects
 		if Globals.scene_name == "House":
 			if area_name == $cellphone:
 				choose_story_lines(Globals.story_number_manager() + 1, Globals.story_number_manager(1))
-				if $bed.visible == false:
-					change_scene_conditions = true
+				#if $bed.visible == false:
+				change_scene_conditions += 1
 			elif area_name == $bed:
-				if $cellphone/CollisionShape2D.disabled == true:
+				if change_scene_conditions == Globals.max_scene_conditions - 1:
 					save_player_data(Globals.scene_name)
 					$AnimationPlayer.play("fade_in")
-					change_scene_conditions = true
 				else:
 					text_manager(99)
 		elif Globals.scene_name == "Bathroom":
 			if area_name == $gloryhole:
 				choose_story_lines(Globals.story_number_manager() + 1, Globals.story_number_manager(1))
-				change_scene_conditions = true
+				change_scene_conditions += 1

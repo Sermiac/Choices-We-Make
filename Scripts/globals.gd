@@ -4,8 +4,10 @@ var story_mode = true
 var button_E_pressed = false
 var story_end
 
-# Diccionario para almacenar la historia
+# Almacenar la historia
 var story_data = {}
+var max_scene_conditions = 0
+var transition
 
 
 # DATA TO SAVE
@@ -138,6 +140,7 @@ func load_story_file():
 		var story = {}
 		var index = 1
 		var key = "text_"
+		max_scene_conditions = null
 		# Count Story lines
 		var line_count = 0
 		var story_number_temp = []
@@ -146,16 +149,22 @@ func load_story_file():
 			file_access.seek(0) # Reset file cursor to the beginning
 			while not file_access.eof_reached():
 				var line = file_access.get_line()
-				if line.contains("###") == false and line != "":
+				# Process each line of text
+				if !line.contains("###") and line != "":
 					story[key + str(index)] = line
 					index += 1
 					if line_count != null:
 						line_count += 1
-				if line == "" and line_count != null:
+					if max_scene_conditions != null:
+						max_scene_conditions += 1
+				# When a blank space, updates the line count for object
+				elif line == "" and line_count != null:
 					story_number_temp += [line_count]
-				elif line == "### optionalText":
+				# Updates lines to guide player
+				elif line.to_lower() == "### optionaltext":
 					line_count = null
 					index += 99 - index
+					max_scene_conditions = 0
 				elif line.contains("###"):
 					pass
 				
