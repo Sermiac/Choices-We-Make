@@ -13,8 +13,6 @@ var interact = false
 # Text
 var current_text = 0
 var wait = 1
-var story_end
-var story_begin
 
 # Change scene conditions met
 var change_scene_conditions = 0
@@ -49,22 +47,22 @@ func get_interactables_properties():
 			index += 1
 
 	# initialize them 3 times (based on the amount of properties)
+	await Globals.load_story_file()
 	for property in 3:
 		for index in group:
 			Globals.initialize_scene_nodes(group[index], property)
 
 
 func _ready() -> void:
+	$door/CollisionShape2D.disabled = true
 	Globals.story_mode = true
 	change_scene_conditions = 0
 	# Get name of scene and starts counting
 	Globals.scene_name = get_parent().name
 	if Globals.scene_name == "House":
 		Globals.scene_number_House += 1
-		get_interactables_properties()
 	elif Globals.scene_name == "Bathroom":
 		Globals.scene_number_Bathroom += 1
-		get_interactables_properties()
 	# Player stats
 	Globals.player = get_tree().get_nodes_in_group("player")
 	Globals.get_player_data("position")
@@ -72,11 +70,9 @@ func _ready() -> void:
 	$player/AnimatedSprite2D.play("idle_animation")
 	# First Scene Animation
 	$AnimationPlayer.play("fade_out")
-	# Story
-	Globals.load_story_file()
-	story_end = Globals.story_number_manager()
+	# Story Data
+	get_interactables_properties()
 	Globals.save_on_file(2)
-	print(Globals.story_data)
 	
 
 
@@ -84,7 +80,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Globals.story_mode != true:
 		$door/CollisionShape2D.disabled = false
-		current_text = 0
 		var walking_state = walking_animation()
 		if walking_state == "left" or left_pressed == true:
 			if wall_collided() != "right":
@@ -97,15 +92,14 @@ func _process(delta: float) -> void:
 
 	elif Globals.story_mode == true:
 		$door/CollisionShape2D.disabled = true
-		if story_begin != null:
-			if story_begin > current_text:
-				current_text = story_begin
-		if story_end != null and story_begin != null:
-			if story_end > story_begin:
-				$player/AnimatedSprite2D.play("idle_animation")
-		text_manager(story_begin, story_end)
+		$player/AnimatedSprite2D.play("idle_animation")
+		if !area_name:
+			text_manager("firstlines")
+		elif area_name:
+			text_manager(area_name.name)
 		if Input.is_action_just_pressed("ui_cancel"):
 			if $first_text_timer.time_left > 0:
+				timer = false
 				$first_text_timer.timeout.emit()
 				$first_text_timer.stop()
 			else:
@@ -203,15 +197,15 @@ func interact_logic_area_entered() -> bool:
 
 # Text logic
 var timer = false
-func find_and_execute_text(chapter_number = null, text_number = null):
-	if !chapter_number and !text_number:
+func find_and_execute_text(text_number = null, obj = null):
+	if !text_number and !obj:
 		dialogue_box.show_text("")
 		$player/Camera2D/CanvasLayer/DialogueBox/Panel/RichTextLabel2.text = ""
 		$player/Camera2D/CanvasLayer/DialogueBox.visible = false
 		$player/Camera2D/CanvasLayer/DialogueBox/text_timer.stop()
 		$player/Camera2D/CanvasLayer/DialogueBox/text_timer.timeout.emit()
 		return
-	var text = Globals.story_manager(chapter_number,text_number)
+	var text = Globals.story_manager(text_number,obj)
 	if timer == false:
 		dialogue_box.show_text(text)
 		$player/Camera2D/CanvasLayer/DialogueBox/Panel/RichTextLabel2.text = ""
@@ -229,44 +223,53 @@ func _on_text_timer_timeout() -> void:
 var first_text = false
 func _on_first_text_timer_timeout() -> void:
 	if current_text == 0:
+		current_text += 1
 		first_text = true
 
+
 # Automatic story manager
-func text_manager(specific_text = null, specific_last_number = null):
-	var last_number = specific_last_number
+var last_number
+func text_manager(obj = null, optional = null):
+	if !last_number:
+		var dict = Globals.story_data[Globals.get_current_scene(true,true)][obj]["textLines"]
+		last_number = len(dict)
 	var input = Input.is_action_pressed("interact") or Globals.button_E_pressed == true or Input.is_action_just_pressed("ui_cancel")
+	
 	if first_text == true:
-		current_text += 1
-		find_and_execute_text("chapter_1", str(current_text))
+		find_and_execute_text(str(current_text), obj)
 		first_text = false
 		return
-	elif Globals.story_mode == true and current_text > 0:
+		
+	
+	elif Globals.story_mode == true and obj:
 		if input and area_entered:
 			area_name.get_child(0).disabled = true
 			area_name.get_child(2).play(str(area_name.name) + "_idle")
-			find_and_execute_text("chapter_1", str(current_text))
+			if current_text == 0:
+				current_text += 1
+			find_and_execute_text(str(current_text), obj)
 		elif input or area_entered:
+			if current_text == 0:
+				current_text += 1
 			if current_text <= last_number:
-				find_and_execute_text("chapter_1", str(current_text))
+				find_and_execute_text(str(current_text), obj)
 				if animation_transition == true:
 					area_name.get_child(0).disabled = true
 					area_name.get_child(2).play(str(area_name.name) + "_idle")
 			if current_text > last_number:
 				Globals.story_mode = false
 				find_and_execute_text()
+				current_text = 0
+				last_number = null
 				if animation_transition == true:
 					transition("house")
+
 			
 	elif Globals.story_mode == false:
 		$player/Camera2D/CanvasLayer/DialogueBox/text_timer.timeout.emit()
-		find_and_execute_text("chapter_1", str(specific_text))
-		
-
-func choose_story_lines(begin, end):
-	find_and_execute_text()
-	story_begin = begin
-	story_end = end
-	Globals.story_mode = true
+		find_and_execute_text(str(optional), obj)
+		last_number = null
+		current_text = 0
 
 var animation_transition
 func transition(scene = null):
@@ -294,8 +297,10 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 				interact = true
 				Globals.story_mode = true
 		if has_node("bed") and area_name == $bed:
-			choose_story_lines(Globals.story_number_manager(1) + 1, Globals.story_number_manager(2))
+			Globals.story_mode = true
 			animation_transition = true
+			
+			
 
 
 
@@ -307,11 +312,11 @@ func interactable_objects():
 			
 	# if pressed button and inside of interactable area
 	if interact_logic_area_entered() == true:
-		print(Globals.max_scene_conditions)
 		# Manage Door interactions
 		if area_name == $door:
+			print(Globals.max_scene_conditions)
 			if change_scene_conditions != Globals.max_scene_conditions:
-				text_manager(99 + change_scene_conditions)
+				text_manager("optionaltext", 1 + change_scene_conditions)
 
 			if change_scene_conditions == Globals.max_scene_conditions:
 				save_player_data(Globals.scene_name)
@@ -320,16 +325,25 @@ func interactable_objects():
 		# Manage interactions on objects
 		if Globals.scene_name == "House":
 			if area_name == $cellphone:
-				choose_story_lines(Globals.story_number_manager() + 1, Globals.story_number_manager(1))
-				#if $bed.visible == false:
+				Globals.story_mode = true
+				# Resets text manager
+				$player/Camera2D/CanvasLayer/DialogueBox/text_timer.timeout.emit()
+				$player/Camera2D/CanvasLayer/DialogueBox/text_timer.stop()
+				# Stats text
+				text_manager(area_name.name)
 				change_scene_conditions += 1
 			elif area_name == $bed:
 				if change_scene_conditions == Globals.max_scene_conditions - 1:
 					save_player_data(Globals.scene_name)
 					$AnimationPlayer.play("fade_in")
 				else:
-					text_manager(99)
+					text_manager("optionaltext", 1 + change_scene_conditions)
 		elif Globals.scene_name == "Bathroom":
-			if area_name == $gloryhole:
-				choose_story_lines(Globals.story_number_manager() + 1, Globals.story_number_manager(1))
+			if area_name == $hole:
+				Globals.story_mode = true
+				# Resets text manager
+				$player/Camera2D/CanvasLayer/DialogueBox/text_timer.timeout.emit()
+				$player/Camera2D/CanvasLayer/DialogueBox/text_timer.stop()
+				# Starts text
+				text_manager(area_name.name)
 				change_scene_conditions += 1

@@ -97,12 +97,12 @@ size = Vector2(40.651115, 57.39755)
 animations = [{
 "frames": [],
 "loop": true,
-"name": &"gloryhole_idle",
+"name": &"hole_idle",
 "speed": 5.0
 }, {
 "frames": [],
 "loop": true,
-"name": &"gloryhole_move",
+"name": &"hole_move",
 "speed": 5.0
 }]
 
@@ -314,15 +314,15 @@ wait_time = 2.0
 one_shot = true
 autostart = true
 
-[node name="gloryhole" type="Area2D" parent="Game" groups=["interactables"]]
+[node name="hole" type="Area2D" parent="Game" groups=["interactables"]]
 position = Vector2(747, 314)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/gloryhole"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/hole"]
 position = Vector2(-1, 29)
 scale = Vector2(3.5915375, 4.52981)
 shape = SubResource("RectangleShape2D_b357n")
 
-[node name="Label_interact" type="Label" parent="Game/gloryhole"]
+[node name="Label_interact" type="Label" parent="Game/hole"]
 visible = false
 offset_left = -160.0
 offset_top = -113.0
@@ -332,9 +332,9 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Press E to interact"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/gloryhole"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Game/hole"]
 sprite_frames = SubResource("SpriteFrames_21tks")
-animation = &"gloryhole_move"
+animation = &"hole_move"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="Game"]
 top_level = true
